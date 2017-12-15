@@ -1,0 +1,61 @@
+<!--
+  Generated template for the CreateGroupPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Create New Group</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form [formGroup]="formgroup" (ngSubmit)="submitForm(formgroup.value)">
+    <ion-list>
+
+      <ion-item>
+        <ion-label floating>Name</ion-label>
+        <ion-input type="text" value="" formControlName="name"></ion-input>
+      </ion-item>
+      <!-- <ion-item *ngIf="name.hasError('required') && name.touched">
+        <p>Name is required</p>
+      </ion-item> -->
+
+      <ion-item>
+        <ion-label floating>Tags</ion-label>
+        <ion-textarea formControlName="tags"></ion-textarea>
+      </ion-item>
+      <!-- <ion-item *ngIf="tags.hasError('required') && tags.touched">
+        <p>Tags are required</p>
+      </ion-item> -->
+
+      <ion-item>
+        <ion-label floating>Description</ion-label>
+        <ion-textarea formControlName="description"></ion-textarea>
+      </ion-item>
+    </ion-list>
+    <!-- <ion-item *ngIf="description.hasError('required') && description.touched">
+      <p>description is required</p>
+    </ion-item> -->
+
+    <ion-list radio-group>
+      <ion-list-header>
+        Status
+      </ion-list-header>
+      <ion-item>
+        <ion-label>Active</ion-label>
+        <ion-radio value="active" checked></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>Inactive</ion-label>
+        <ion-radio value="inactive"></ion-radio>
+      </ion-item>
+    </ion-list>
+    <button ion-button block>Submit</button>
+    <!-- <button ion-button block (click)="selectUsers()">Next</button> -->
+  </form>
+</ion-content>

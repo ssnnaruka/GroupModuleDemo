@@ -1,0 +1,27 @@
+<!-- Generated template for the UserListComponent component -->
+ <ion-searchbar placeholder="Filter Items" showCancelButton color="danger" (ionInput)="filterItems($event)"></ion-searchbar>
+
+    <ion-list>
+        <ion-item *ngFor="let item of items" (click)="itemClick(item)">
+          <ion-avatar item-start>
+            <img [src]="item.profileImage">
+          </ion-avatar>
+          <ion-label>{{ item.firstName + " " + item.lastName }}</ion-label>
+          <p><ion-icon name="mail"></ion-icon>&nbsp;{{ item.email }}</p>
+          <ion-checkbox dark item-end [(ngModel)]="checkList[item._id]" (ionChange)="toggleCheck($event, item)"></ion-checkbox>
+
+        </ion-item>
+      </ion-list> 
+      
+
+
+      <!-- <ion-searchbar placeholder="Filter Items" showCancelButton color="danger" (ionInput)="filterItems($event)"></ion-searchbar>
+      
+          <ion-list>
+              <ion-item *ngFor="let item of items; let i = index" (click)="itemClick(item)">
+                
+                <ion-label>{{ item._id }}</ion-label>
+                <h2>{{ i }}</h2>
+
+              </ion-item>
+            </ion-list> -->

@@ -1,0 +1,14 @@
+<!-- Generated template for the GroupListComponent component -->
+<div>
+  Group
+  {{text}}
+  <ion-list>
+      <ion-item *ngFor="let d of groupSData" (click)="showGroup(d)">{{ d.name }}</ion-item>
+  </ion-list>
+  <ion-infinite-scroll (ionInfinite)="doInfiniteScroll($event)" threshold="100px">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</div>
