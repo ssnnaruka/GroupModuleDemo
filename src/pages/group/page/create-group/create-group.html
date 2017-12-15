@@ -19,11 +19,12 @@
 
       <ion-item>
         <ion-label floating>Name</ion-label>
-        <ion-input type="text" value="" formControlName="name"></ion-input>
+        <ion-input type="text" value="" formControlName="name" (input)="onChangeName()" ></ion-input>
       </ion-item>
-      <!-- <ion-item *ngIf="name.hasError('required') && name.touched">
-        <p>Name is required</p>
-      </ion-item> -->
+
+      <ion-item no-lines *ngIf="nameError" >
+        <ion-label color="danger">Name is required</ion-label>
+      </ion-item>
 
       <ion-item>
         <ion-label floating>Tags</ion-label>

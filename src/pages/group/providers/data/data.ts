@@ -13,14 +13,15 @@ import "rxjs/add/operator/catch"
 @Injectable()
 export class DataProvider {
 
-  url: string = "http://192.168.1.119:3000/groups?page=";
+  urlG: string = "http://192.168.1.119:3000/groups?page=";
+  url: string = "http://192.168.1.119:3000/groups";
 
   constructor(public http: Http) {
     console.log('Hello DataProvider Provider');
   }
 
   getGroups(no:any) {
-    return this.http.get(this.url + no)
+    return this.http.get(this.urlG + no)
       .do(this.logResponse)
       .map(this.extractData)
       .catch(this.handleError);

@@ -20,7 +20,9 @@ export class CreateGroupPage {
   name: AbstractControl;
   tags: AbstractControl;
   description: AbstractControl;
-  // status: AbstractControl;
+  status: any;
+
+  nameError: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private formbuilder: FormBuilder, public dataProvider: DataProvider) {
     this.setForm();
@@ -48,44 +50,54 @@ export class CreateGroupPage {
     this.navCtrl.push("UserPage");
   }
 
-  submitForm(form) {
-    console.log(form);
-    this.navCtrl.push("UserPage", {
-      gCallback : {
-        passArgs : this,
-        callFunc : this.saveGroup
-      }
-    });
+  onChangeName() {
+    this.nameError = false;
   }
 
-  saveGroup(self:any, users:any){
+  submitForm(form) {
+    console.log(form);
+    console.log(this.status);
+    if (form.name !== undefined && form.name !== "") {
+      this.navCtrl.push("UserPage", {
+        gCallback: {
+          passArgs: this,
+          callFunc: this.saveGroup
+        }
+      });
+    } else {
+      this.nameError = true;
+    }
+
+  }
+
+  saveGroup(self: any, users: any) {
     console.log("Before Saving Groups");
     console.log(users);
     console.log(self.formgroup.value);
     let temp = self.formgroup.value;
 
     let obj = {
-      name : temp.name,
-      description : temp.description,
-      individuals : [],
+      name: temp.name,
+      description: temp.description,
+      individuals: [],
       "admin": "Creatouch Academy",
       "adminId": "3001",
-      "status" : false
+      "status": false
     }
 
-    if(temp.tags.indexOf(",") > -1){
+    if (temp.tags.indexOf(",") > -1) {
       let a = temp.tags.split(",");
       obj["tags"] = a;
     }
-    for(let us in users){
+    for (let us in users) {
       obj.individuals.push(users[us]);
     }
     self.dataProvider.http.post(self.dataProvider.url, obj)
-    .subscribe(data => {
-      console.log(data['_body']);
-     }, error => {
-      console.log(error);// Error getting the data
-    });
+      .subscribe(data => {
+        console.log(data['_body']);
+      }, error => {
+        console.log(error);// Error getting the data
+      });
     self.navCtrl.setRoot("GroupPage");
     console.log("request in progress");
     //this.dataProvider.createGroup(obj);//.subscribe(data => console.log(data.data));
