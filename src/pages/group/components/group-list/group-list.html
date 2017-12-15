@@ -1,12 +1,27 @@
 <!-- Generated template for the GroupListComponent component -->
 <div>
   <ion-list>
-      <ion-item *ngFor="let d of groupSData" (click)="showGroup(d)">{{ d.name }}</ion-item>
+    <ion-item *ngFor="let d of groupSData" (click)="presentActionSheet(d)">
+      <h2>{{ d.name }}</h2>
+      <p>
+        <span *ngFor="let tag of d.tags">{{ tag + ","}} Status: {{ d.status }}</span>
+      </p>
+      <!-- <div *ngIf="d.status; then activeBlock else inactiveBlock"></div>
+      <ng-template #activeBlock>
+        <ion-label color="success">
+          Active
+        </ion-label>
+      </ng-template>
+      <ng-template #inactiveBlock”>
+        <ion-label  color="danger">
+          Inactive
+        </ion-label>
+      </ng-template> -->
+
+    </ion-item>
   </ion-list>
   <ion-infinite-scroll (ionInfinite)="doInfiniteScroll($event)" threshold="100px">
-    <ion-infinite-scroll-content
-      loadingSpinner="bubbles"
-      loadingText="Loading more data...">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </div>

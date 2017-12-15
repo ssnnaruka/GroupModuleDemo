@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { ActionSheetController } from "ionic-angular";
 
 /**
  * Generated class for the GroupListComponent component.
@@ -25,7 +26,7 @@ export class GroupListComponent {
     { id: 4, name: 'Flash' }
   ];
 
-  constructor() {
+  constructor(public actionSheetCtrl: ActionSheetController) {
     console.log('Hello GroupListComponent Component');
     this.text = 'Hello World';
     console.log(this.groupSData);
@@ -40,6 +41,33 @@ export class GroupListComponent {
   
   doInfiniteScroll(ev:any) {
           this.onSuggest.emit(ev);
+  }
+
+  presentActionSheet() {
+    let actionSheet = this.actionSheetCtrl.create({
+      title: 'Modify your album',
+      buttons: [
+        {
+          text: 'Destructive',
+          role: 'destructive',
+          handler: () => {
+            console.log('Destructive clicked');
+          }
+        },{
+          text: 'Archive',
+          handler: () => {
+            console.log('Archive clicked');
+          }
+        },{
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    actionSheet.present();
   }
 
 }
