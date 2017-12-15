@@ -33,13 +33,13 @@ export class CreateGroupPage {
       'name': ["", Validators.required],
       'tags': ["", Validators.required],
       'description': [""]
-      // ,
-      // 'status': [null, Validators.required],
+      ,
+      'status': [null, Validators.required],
     })
     this.name = this.formgroup.controls["name"];
     this.tags = this.formgroup.controls["tags"];
     this.description = this.formgroup.controls["description"];
-    // this.status = this.formgroup.controls["status"];
+    this.status = this.formgroup.controls["status"];
   }
 
   ionViewDidLoad() {
@@ -75,7 +75,7 @@ export class CreateGroupPage {
     console.log(users);
     console.log(self.formgroup.value);
     let temp = self.formgroup.value;
-
+    
     let obj = {
       name: temp.name,
       description: temp.description,
@@ -83,6 +83,11 @@ export class CreateGroupPage {
       "admin": "Creatouch Academy",
       "adminId": "3001",
       "status": false
+    }
+    if(temp.status === "active") {
+      obj.status = true;
+    } else {
+      obj.status = false;
     }
 
     if (temp.tags.indexOf(",") > -1) {

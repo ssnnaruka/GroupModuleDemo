@@ -43,17 +43,20 @@
       <p>description is required</p>
     </ion-item> -->
 
-    <ion-list radio-group>
+    <ion-list radio-group formControlName="status">
       <ion-list-header>
         Status
       </ion-list-header>
       <ion-item>
         <ion-label>Active</ion-label>
         <ion-radio value="active" checked></ion-radio>
+        <!-- <input type="radio" value="active" formControlName="status"> -->
+        
       </ion-item>
       <ion-item>
         <ion-label>Inactive</ion-label>
         <ion-radio value="inactive"></ion-radio>
+        <!-- <input type="radio" value="inactive" formControlName="status"> -->
       </ion-item>
     </ion-list>
     <button ion-button block>Submit</button>
