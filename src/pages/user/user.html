@@ -15,8 +15,7 @@
 
 <ion-content padding>
   <div *ngIf="userSData">
-    <!-- <user-list [userSData]="usersObj" [items]=[userSData]></user-list> -->
-    <user-list [userSData]="usersObj" [items]=userSData></user-list>
+    <user-list [userSData]="usersObj" [items]=userSData (onSuggest)="doInfinite($event)"></user-list>
   </div>
 </ion-content>
 

@@ -13,26 +13,26 @@ import "rxjs/add/operator/catch"
 @Injectable()
 export class DataProvider {
 
-  url: string = "http://192.168.1.120:3000/groups";
+  url: string = "http://192.168.1.119:3000/groups?page=";
 
   constructor(public http: Http) {
     console.log('Hello DataProvider Provider');
   }
 
-  getGroups() {
-    return this.http.get(this.url)
+  getGroups(no:any) {
+    return this.http.get(this.url + no)
       .do(this.logResponse)
       .map(this.extractData)
-      .catch(this.catchError);
+      .catch(this.handleError);
   }
 
-  getAsyncData(): Promise<any[]> {
+  getAsyncData(no:any): Promise<any[]> {
     // async receive mock data
     return new Promise(resolve => {
 
       // setTimeout(() => {
         // resolve(
-          this.getGroups()
+          return this.getGroups(no);
         // );
       // }, 1000);
 
@@ -46,9 +46,17 @@ export class DataProvider {
       // .catch(this.catchError);
   }
 
-  private catchError(error: Response | any) {
-    console.log(error);
-    return Observable.throw(error.json().error || "Server Error");
+  private handleError (error: Response | any) {
+    let errMsg: string;
+    if (error instanceof Response) {
+      const body = error.json() || '';
+      const err = body.error || JSON.stringify(body);
+      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+    } else {
+      errMsg = error.message ? error.message : error.toString();
+    }
+    console.error(errMsg);
+    return Observable.throw(errMsg)  || "Server Error";
   }
 
   private logResponse(res: Response) {

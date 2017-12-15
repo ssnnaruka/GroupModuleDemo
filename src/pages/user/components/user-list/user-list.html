@@ -11,7 +11,13 @@
           <ion-checkbox dark item-end [(ngModel)]="checkList[item._id]" (ionChange)="toggleCheck($event, item)"></ion-checkbox>
 
         </ion-item>
-      </ion-list> 
+      </ion-list>
+      <ion-infinite-scroll (ionInfinite)="doInfiniteScroll($event)" threshold="100px">
+        <ion-infinite-scroll-content
+          loadingSpinner="bubbles"
+          loadingText="Loading more data...">
+        </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
       
 
 

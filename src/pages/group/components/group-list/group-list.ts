@@ -39,7 +39,7 @@ export class GroupListComponent {
   onSuggest: EventEmitter<any> = new EventEmitter();
   
   doInfiniteScroll(ev:any) {
-          this.onSuggest.emit([ev]);
+          this.onSuggest.emit(ev);
   }
 
 }

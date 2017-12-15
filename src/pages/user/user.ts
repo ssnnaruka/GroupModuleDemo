@@ -18,8 +18,10 @@ import { UserDataProvider } from './providers/data/data';
 export class UserPage {
 
   userSData: Array<any> = [];
-  usersObj:any = {};
-  gCallback:any;
+  usersObj: any = {};
+  gCallback: any;
+
+  pageNo: number = 1;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public userDataProvider: UserDataProvider) {
     this.getUsers();
@@ -31,8 +33,8 @@ export class UserPage {
     console.log('ionViewDidLoad UserPage');
   }
 
-  getUsers(){
-    this.userDataProvider.getUsers().subscribe(data => {
+  getUsers() {
+    this.userDataProvider.getUsers(this.pageNo++).subscribe(data => {
       console.log(data);
       this.userSData = data.data;
     });
@@ -40,9 +42,20 @@ export class UserPage {
 
   confirmUserList() {
     this.navCtrl.push("UserListConfirmPage", {
-      usersObj : this.usersObj,
-      gCallback : this.gCallback
+      usersObj: this.usersObj,
+      gCallback: this.gCallback
     });
     console.log("User Confrim Page");
   }
+
+  doInfinite(infiniteScroll: any) {
+    this.userDataProvider.getUsers(this.pageNo++).subscribe(data => {
+      this.userSData = this.userSData.concat(data.data)
+      infiniteScroll.complete();
+      // if (this.userSData.length > 90) {
+      //   infiniteScroll.enable(false);
+      // }
+    });
+  }
+
 }

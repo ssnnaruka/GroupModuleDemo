@@ -13,22 +13,31 @@ import "rxjs/add/operator/catch"
 @Injectable()
 export class UserDataProvider {
 
-  url: string = "http://192.168.1.120:3000/users";
+  url: string = "http://192.168.1.119:3000/users?page=";
+  // http://192.168.1.119:3000/groups?page=1
 
   constructor(public http: Http) {
     console.log('Hello DataProvider Provider');
   }
 
-  getUsers() {
-    return this.http.get(this.url)
+  getUsers(a:any) {
+    return this.http.get(this.url + a)
       .do(this.logResponse)
       .map(this.extractData)
-      .catch(this.catchError);
+      .catch(this.handleError);
   }
 
-  private catchError(error: Response | any) {
-    console.log(error);
-    return Observable.throw(error.json().error || "Server Error");
+  private handleError (error: Response | any) {
+    let errMsg: string;
+    if (error instanceof Response) {
+      const body = error.json() || '';
+      const err = body.error || JSON.stringify(body);
+      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+    } else {
+      errMsg = error.message ? error.message : error.toString();
+    }
+    console.error(errMsg);
+    return Observable.throw(errMsg)  || "Server Error";
   }
 
   private logResponse(res: Response) {

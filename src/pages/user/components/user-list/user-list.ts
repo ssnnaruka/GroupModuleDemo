@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 /**
  * Generated class for the UserListComponent component.
@@ -29,6 +29,13 @@ export class UserListComponent {
 
   constructor() {
     console.log('Hello UserListComponent Component');
+  }
+
+  @Output()
+  onSuggest: EventEmitter<any> = new EventEmitter();
+  
+  doInfiniteScroll(ev:any) {
+          this.onSuggest.emit(ev);
   }
 
   ngOnInit() {
